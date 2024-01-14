@@ -1,9 +1,11 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 bool luia_init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
         return false;
+    TTF_Init();
     return true;
 }
 
@@ -13,6 +15,7 @@ bool luia_init() {
 
 
 void luia_quit_sdl() {
+    TTF_Quit();
     SDL_Quit();
 }
 
