@@ -1,5 +1,5 @@
 build:
-	gcc ./src/*.c -lm -lSDL2 -o out
+	gcc ./src/*.c -lm -lSDL2 -lSDL2_ttf -o out
 
 run:
 	./out
