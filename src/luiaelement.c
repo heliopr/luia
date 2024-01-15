@@ -6,7 +6,7 @@
 
 uint32_t element_id_count = 0;
 
-luia_element *luia_element_new() {
+luia_element *luia_element_new(const char *name) {
     luia_element *e = malloc(sizeof(luia_element));
     e->parent = NULL;
     e->children = NULL;
@@ -14,9 +14,14 @@ luia_element *luia_element_new() {
     e->children_allocated = 0;
     e->data = NULL;
     e->type = NONE;
-    e->visible = false;
+    e->visible = true;
     e->id = element_id_count++;
-    strcpy(e->name, "");
+    e->position_px = (vector2){0, 0};
+    e->position_rel = (vector2){0, 0};
+    e->size_px = (vector2){0, 0};
+    e->size_rel = (vector2){0, 0};
+    e->anchor = (vector2){0, 0};
+    strcpy(e->name, name);
     return e;
 }
 

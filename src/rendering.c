@@ -27,6 +27,22 @@ void luia_calculate_text_wh(uint8_t size, size_t character_count, u_int16_t *w, 
     *h = (uint16_t)ceil(((double)size/120)*136);
 }
 
+int next_wrap(const char *s, int i, int goal) {
+    int len = strlen(s);
+    int j = i, k = i;
+    while (j <= len && j <= i+goal) {
+        if ((s[j] == '\0' || s[j] == ' ')) {
+            if (j > 0 && s[j-1] == ' ') {
+                j++;
+                continue;
+            }
+            k = j;
+        }
+        j++;
+    }
+    return k;
+}
+
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, uint16_t x, uint16_t y, uint8_t size) {
     SDL_Surface *surface = TTF_RenderText_Solid(fonts[size], text, (SDL_Color) {color.r, color.g, color.b, color.a});
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -36,9 +52,14 @@ void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, uint
     //SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     //printf("b %d %d\n", w, h);
     SDL_Rect dstrect = {x, y, w, h};
-
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
 
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
+}
+
+void luia_render_box(SDL_Renderer *renderer, uint16_t x, uint16_t y, uint16_t w, uint16_t h, rgba color) {
+    SDL_Rect r = {x, y, w, h};
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_RenderFillRect(renderer, &r);
 }

@@ -4,6 +4,7 @@
 
 #include "luiawindow.h"
 #include "luiaelement.h"
+#include "luiatextlabel.h"
 #include "rendering.h"
 #include "luia.h"
 
@@ -11,12 +12,16 @@ uint32_t last_t = 0;
 
 int main() {
     if (!luia_init()) {
-        fprintf(stderr, "An error occurred when trying to init luia\n");
+        fprintf(stderr, "An error occurred when trying to init' luia\n");
         return 1;
     }
 
-    luia_window *w = luia_window_create(320, 200, "JANELINHA");
+    luia_window *w = luia_window_new(320, 200, "JANELINHA");
     luia_window_show(w);
+
+    luia_textlabel *t = luia_textlabel_new("lbl");
+    t->element->position_px = (vector2) {10, 20};
+    t->element->size_px = (vector2) {100, 60};
 
     SDL_Event e;
 
@@ -32,6 +37,8 @@ int main() {
 
         SDL_SetRenderDrawColor(w->sdl_renderer, 30, 30, 30, 255);
         SDL_RenderClear(w->sdl_renderer);
+
+        luia_textlabel_render(t, w->sdl_renderer);
 
         /*uint8_t size = 24;
         uint16_t wi = (uint16_t)ceil(((double)size/120)*72) * 18, h = (uint16_t)ceil(((double)size/120)*136);

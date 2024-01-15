@@ -1,26 +1,16 @@
 #include "luiawindow.h"
 
-luia_window *luia_window_new() {
+luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title) {
     luia_window *w = malloc(sizeof(luia_window));
-    w->width = 0;
-    w->height = 0;
+    w->width = width;
+    w->height = height;
     w->resizable = false;
     w->sdl_window = NULL;
     w->sdl_renderer = NULL;
-    w->root_element = NULL;
-    strcpy(w->title, "");
-    return w;
-}
-
-luia_window *luia_window_create(uint16_t width, uint16_t height, const char *title) {
-    luia_window *w = luia_window_new();
-    w->width = width;
-    w->height = height;
     strcpy(w->title, title);
 
-    w->root_element = luia_element_new();
-    w->root_element->type = GROUP;
-    strcpy(w->root_element->name, "root");
+    w->root_element = luia_element_new("root");
+    w->root_element->type = ROOT;
     return w;
 }
 
