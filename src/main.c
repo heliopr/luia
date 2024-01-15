@@ -18,6 +18,7 @@ int main() {
 
     luia_window *w = luia_window_new(320, 200, "JANELINHA");
     w->resizable = true;
+    w->background_color = (rgba){10, 10, 10};
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
@@ -26,7 +27,24 @@ int main() {
     t->element->size_px = (vector2) {0, 50};
     t->element->size_rel = (vector2) {1, 0};
 
+    luia_textlabel *t2 = luia_textlabel_new("lbl2");
+    t2->element->position_px = (vector2) {-24, 0};
+    t2->element->position_rel = (vector2) {0.5, 0};
+    t2->element->size_px = (vector2) {50, 0};
+    t2->element->size_rel = (vector2) {0, 1};
+    t2->background_color = (rgba){255, 0, 0, 255};
+
     luia_window_add_element(w, t->element);
+    luia_window_add_element(w, t2->element);
+
+    luia_textlabel *t3 = luia_textlabel_new("lbl2");
+    t3->element->position_px = (vector2) {0, 0};
+    t3->element->position_rel = (vector2) {0, 0};
+    t3->element->size_px = (vector2) {0, 0};
+    t3->element->size_rel = (vector2) {0.7, 1};
+    t3->background_color = (rgba){0, 255, 0, 255};
+
+    luia_element_add_child(t->element, t3->element);
 
     /*vector2 size = {100, 100};
     vector2 px = {0, 0};
@@ -45,9 +63,6 @@ int main() {
                 break;
             }
         }
-
-        SDL_SetRenderDrawColor(w->sdl_renderer, 30, 30, 30, 255);
-        SDL_RenderClear(w->sdl_renderer);
 
         luia_window_render(w);
         //luia_element_render(t->element, w->sdl_renderer, (vector2){0, 0}, (vector2){320, 200});

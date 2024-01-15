@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
+#include "rgba.h"
 #include "luiaelement.h"
 
 typedef struct luia_window
@@ -12,6 +13,7 @@ typedef struct luia_window
     int width, height;
     bool resizable;
     char title[128];
+    rgba background_color;
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
     luia_element *root_element;

@@ -19,10 +19,6 @@ void luia_textlabel_set_text(luia_textlabel *t, const char *text) {
     strcpy(t->text, text);
 }
 
-void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size) {
-    luia_element *e = t->element;
-    vector2 element_pos = vector2_calc_pos(abs_pos, abs_size, e->position_px, e->position_rel);
-    vector2 element_size = vector2_calc_size(abs_size, e->size_px, e->size_rel);
-    printf("VVV %f %f\n%f %f\n", element_pos.x, element_pos.y, element_size.x, element_size.y);
-    luia_render_box(renderer, element_pos.x, element_pos.y, element_size.x, element_size.y, t->background_color);
+void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 pos, vector2 size) {
+    luia_render_box(renderer, pos.x, pos.y, size.x, size.y, t->background_color);
 }

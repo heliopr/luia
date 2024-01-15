@@ -17,6 +17,6 @@ typedef struct luia_textlabel
 
 luia_textlabel *luia_textlabel_new(const char *name);
 void luia_textlabel_set_text(luia_textlabel *t, const char *text);
-void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size);
+void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 pos, vector2 size);
 
 #endif

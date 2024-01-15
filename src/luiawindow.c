@@ -7,6 +7,7 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
     w->resizable = false;
     w->sdl_window = NULL;
     w->sdl_renderer = NULL;
+    w->background_color = (rgba){0, 0, 0, 255};
     strcpy(w->title, title);
 
     w->root_element = luia_element_new("root");
@@ -32,6 +33,10 @@ void luia_window_add_element(luia_window *w, luia_element *e) {
 void luia_window_render(luia_window *w) {
     luia_element *root = w->root_element;
     SDL_Renderer *renderer = w->sdl_renderer;
+
+    rgba color = w->background_color;
+    SDL_SetRenderDrawColor(w->sdl_renderer, color.r, color.g, color.b, 255);
+    SDL_RenderClear(w->sdl_renderer);
 
     SDL_GetWindowSizeInPixels(w->sdl_window, &w->width, &w->height);
     vector2 window_size = {w->width, w->height};

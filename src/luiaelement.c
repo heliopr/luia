@@ -81,13 +81,24 @@ void luia_element_destroy(luia_element *e) {
 }
 
 void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size) {
+    //printf("BBB %f %f          %f %f\n", abs_pos.x, abs_pos.y, abs_size.x, abs_size.y);
+
+    vector2 new_pos = vector2_calc_pos(abs_pos, abs_size, e->position_px, e->position_rel);
+    vector2 new_size = vector2_calc_size(abs_size, e->size_px, e->size_rel);
+
+    //printf("AAA %f %f          %f %f\n", new_pos.x, new_pos.y, new_size.x, new_size.y);
+
     switch (e->type)
     {
         case TEXT_LABEL:
-            luia_textlabel_render((luia_textlabel *)e->data, renderer, abs_pos, abs_size);
+            luia_textlabel_render((luia_textlabel *)e->data, renderer, new_pos, new_size);
             break;
         
         default:
             break;
+    }
+
+    for (int i = 0; i < e->children_count; i++) {
+        luia_element_render(e->children[i], renderer, new_pos, new_size);
     }
 }
