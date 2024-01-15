@@ -28,3 +28,17 @@ void luia_window_show(luia_window *w) {
 void luia_window_add_element(luia_window *w, luia_element *e) {
     luia_element_add_child(w->root_element, e);
 }
+
+void luia_window_render(luia_window *w) {
+    luia_element *root = w->root_element;
+    SDL_Renderer *renderer = w->sdl_renderer;
+
+    SDL_GetWindowSizeInPixels(w->sdl_window, &w->width, &w->height);
+    vector2 window_size = {w->width, w->height};
+    vector2 pos = {0, 0};
+
+    for (int i = 0; i < root->children_count; i++) {
+        //printf("rendering %s\n", root->children[i]->name);
+        luia_element_render(root->children[i], renderer, pos, window_size);
+    }
+}

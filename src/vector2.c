@@ -29,3 +29,12 @@ double vector2_magnitude(vector2 v) {
 vector2 vector2_normalize(vector2 v) {
     return vector2_mult(v, 1/vector2_magnitude(v));
 }
+
+vector2 vector2_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel) {
+    return (vector2){pos.x + px.x + (size.x * rel.x), pos.y + px.y + (size.y * rel.y)};
+    //return vector2_sum(pos, vector2_sum(px, (vector2){size.x * rel.x, size.y * rel.y}));
+}
+
+vector2 vector2_calc_size(vector2 size, vector2 px, vector2 rel) {
+    return (vector2){px.x + (size.x*rel.x), px.y + (size.y*rel.y)};
+}

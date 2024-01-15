@@ -17,16 +17,27 @@ int main() {
     }
 
     luia_window *w = luia_window_new(320, 200, "JANELINHA");
+    w->resizable = true;
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
-    t->element->position_px = (vector2) {10, 20};
-    t->element->size_px = (vector2) {100, 60};
+    t->element->position_px = (vector2) {0, -24};
+    t->element->position_rel = (vector2) {0, 0.5};
+    t->element->size_px = (vector2) {0, 50};
+    t->element->size_rel = (vector2) {1, 0};
+
+    luia_window_add_element(w, t->element);
+
+    /*vector2 size = {100, 100};
+    vector2 px = {0, 0};
+    vector2 rel = {1, 0};
+    vector2 r = vector2_calc_size(size, px, rel);
+    printf("%f %f\n", r.x, r.y);*/
 
     SDL_Event e;
 
     while (1) {
-        uint32_t remaining = (1000/20) - (last_t - SDL_GetTicks());
+        uint32_t remaining = (1000/60) - (last_t - SDL_GetTicks());
         if (remaining > 0) SDL_Delay(remaining);
 
         if (SDL_PollEvent(&e)) {
@@ -38,7 +49,8 @@ int main() {
         SDL_SetRenderDrawColor(w->sdl_renderer, 30, 30, 30, 255);
         SDL_RenderClear(w->sdl_renderer);
 
-        luia_textlabel_render(t, w->sdl_renderer);
+        luia_window_render(w);
+        //luia_element_render(t->element, w->sdl_renderer, (vector2){0, 0}, (vector2){320, 200});
 
         /*uint8_t size = 24;
         uint16_t wi = (uint16_t)ceil(((double)size/120)*72) * 18, h = (uint16_t)ceil(((double)size/120)*136);

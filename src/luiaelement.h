@@ -32,5 +32,6 @@ luia_element *luia_element_new(const char *name);
 void luia_element_add_child(luia_element *parent, luia_element *child);
 void luia_element_unparent(luia_element *e);
 void luia_element_destroy(luia_element *e);
+void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size);
 
 #endif

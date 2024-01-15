@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "luiatextlabel.h"
 #include "luiaelement.h"
 
 uint32_t element_id_count = 0;
@@ -77,4 +78,16 @@ void luia_element_destroy(luia_element *e) {
     free(e->children);
     free(e->data);
     free(e);
+}
+
+void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size) {
+    switch (e->type)
+    {
+        case TEXT_LABEL:
+            luia_textlabel_render((luia_textlabel *)e->data, renderer, abs_pos, abs_size);
+            break;
+        
+        default:
+            break;
+    }
 }
