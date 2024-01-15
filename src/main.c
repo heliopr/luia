@@ -15,13 +15,13 @@ int main() {
         return 1;
     }
 
-    luia_window *w = luia_window_create(300, 200, "JANELINHA");
+    luia_window *w = luia_window_create(320, 200, "JANELINHA");
     luia_window_show(w);
 
     SDL_Event e;
 
     while (1) {
-        uint32_t remaining = (1000/30) - (last_t - SDL_GetTicks());
+        uint32_t remaining = (1000/20) - (last_t - SDL_GetTicks());
         if (remaining > 0) SDL_Delay(remaining);
 
         if (SDL_PollEvent(&e)) {
@@ -30,10 +30,18 @@ int main() {
             }
         }
 
-        SDL_SetRenderDrawColor(w->sdl_renderer, 50, 50, 50, 255);
+        SDL_SetRenderDrawColor(w->sdl_renderer, 30, 30, 30, 255);
         SDL_RenderClear(w->sdl_renderer);
 
-        luia_render_text(w->sdl_renderer, "OLA MUNDO!", (rgba){255, 255, 255, 255}, 10, 10, 15);
+        /*uint8_t size = 24;
+        uint16_t wi = (uint16_t)ceil(((double)size/120)*72) * 18, h = (uint16_t)ceil(((double)size/120)*136);
+        printf("a %d %d\n", wi, h);
+        SDL_Rect r = {10, 10, wi, h};
+        SDL_SetRenderDrawColor(w->sdl_renderer, 255, 200, 200, 255);
+        SDL_RenderFillRect(w->sdl_renderer, &r);
+
+        luia_render_text(w->sdl_renderer, "A12b3io12nbum-08BH", (rgba){255, 255, 255, 255}, 10, 10, size);
+        //luia_render_text(w->sdl_renderer, "JIKLMNOPQRSTUVJK1HAH", (rgba){255, 255, 255, 255}, 10, 30, 10);*/
 
         SDL_RenderPresent(w->sdl_renderer);
 

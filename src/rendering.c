@@ -2,28 +2,11 @@
 
 #include "rendering.h"
 
-char font_patterns[128][LUIA_FONT_SIZEPX][LUIA_FONT_SIZEPX] = {
-    ['a'] = {
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0,0,0},
-    }
-};
-
 TTF_Font *fonts[256];
 
 bool luia_load_fonts() {
     for (int i = 0; i < 256; i++) {
-        fonts[i] = TTF_OpenFont("fonts/arial.ttf", i);
+        fonts[i] = TTF_OpenFont("fonts/arial_mono.ttf", i);
 
         if (!fonts[i]) {
             fprintf(stderr, "Error: could not load font arial.ttf (size %d)\n%s\n", i, TTF_GetError());
@@ -39,13 +22,19 @@ void luia_close_fonts() {
     }
 }
 
+void luia_calculate_text_wh(uint8_t size, size_t character_count, u_int16_t *w, u_int16_t *h) {
+    *w = (uint16_t)ceil(((double)size/120)*72) * character_count;
+    *h = (uint16_t)ceil(((double)size/120)*136);
+}
+
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, uint16_t x, uint16_t y, uint8_t size) {
     SDL_Surface *surface = TTF_RenderText_Solid(fonts[size], text, (SDL_Color) {color.r, color.g, color.b, color.a});
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    int w = 0;
-    int h = 0;
-    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    uint16_t w, h;
+    luia_calculate_text_wh(size, strlen(text), &w, &h);
+    //SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    //printf("b %d %d\n", w, h);
     SDL_Rect dstrect = {x, y, w, h};
 
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
