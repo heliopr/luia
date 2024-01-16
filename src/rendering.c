@@ -22,9 +22,9 @@ void luia_close_fonts() {
     }
 }
 
-void luia_calculate_text_wh(uint8_t size, size_t character_count, u_int16_t *w, u_int16_t *h) {
-    *w = (uint16_t)ceil(((double)size/120)*72) * character_count;
-    *h = (uint16_t)ceil(((double)size/120)*136);
+void luia_calculate_text_wh(uint8_t size, size_t character_count, uint16_t *w, uint16_t *h) {
+    if (w != NULL) *w = (uint16_t)ceil(((double)size/120)*72) * character_count;
+    if (h != NULL) *h = (uint16_t)ceil(((double)size/120)*136);
 }
 
 int next_wrap(const char *s, int i, int goal) {

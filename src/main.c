@@ -25,8 +25,9 @@ int main() {
     t->element->anchor = (vector2) {0, 0.5};
     t->element->position_px = (vector2) {0, 0};
     t->element->position_rel = (vector2) {0, 0.5};
-    t->element->size_px = (vector2) {100, 100};
-    t->element->size_rel = (vector2) {0, 0};
+    t->element->size_px = (vector2) {0, 100};
+    t->element->size_rel = (vector2) {0.3, 0};
+    t->text_x_alignment = RIGHT;
     strcpy(t->text, "BUTTON");
 
     luia_window_add_element(w, t->element);
@@ -49,7 +50,7 @@ int main() {
     t3->element->anchor = (vector2) {0.5, 0.5};
     t3->background_color = (rgba){0, 255, 0, 255};
 
-    luia_element_add_child(t->element, t3->element);
+    //luia_element_add_child(t->element, t3->element);
 
     /*vector2 size = {100, 100};
     vector2 px = {0, 0};

@@ -94,7 +94,6 @@ void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_po
         case TEXT_LABEL:
             luia_textlabel_render((luia_textlabel *)e->data, renderer, new_pos, new_size);
             break;
-        
         default:
             break;
     }
