@@ -46,4 +46,6 @@ void luia_window_render(luia_window *w) {
         //printf("rendering %s\n", root->children[i]->name);
         luia_element_render(root->children[i], renderer, pos, window_size);
     }
+
+    SDL_RenderPresent(w->sdl_renderer);
 }

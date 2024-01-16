@@ -39,9 +39,10 @@ int main() {
 
     luia_textlabel *t3 = luia_textlabel_new("lbl2");
     t3->element->position_px = (vector2) {0, 0};
-    t3->element->position_rel = (vector2) {0, 0};
+    t3->element->position_rel = (vector2) {0.5, 0};
     t3->element->size_px = (vector2) {0, 0};
     t3->element->size_rel = (vector2) {0.7, 1};
+    t3->element->anchor = (vector2) {0.5, 0};
     t3->background_color = (rgba){0, 255, 0, 255};
 
     luia_element_add_child(t->element, t3->element);
@@ -76,8 +77,6 @@ int main() {
 
         luia_render_text(w->sdl_renderer, "A12b3io12nbum-08BH", (rgba){255, 255, 255, 255}, 10, 10, size);
         //luia_render_text(w->sdl_renderer, "JIKLMNOPQRSTUVJK1HAH", (rgba){255, 255, 255, 255}, 10, 30, 10);*/
-
-        SDL_RenderPresent(w->sdl_renderer);
 
         last_t = SDL_GetTicks();
     }

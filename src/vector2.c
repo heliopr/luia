@@ -38,3 +38,7 @@ vector2 vector2_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel) {
 vector2 vector2_calc_size(vector2 size, vector2 px, vector2 rel) {
     return (vector2){px.x + (size.x*rel.x), px.y + (size.y*rel.y)};
 }
+
+vector2 vector2_calc_anchor(vector2 pos, vector2 size, vector2 anchor) {
+    return (vector2){pos.x - (size.x * anchor.x), pos.y - (size.y * anchor.y)};
+}

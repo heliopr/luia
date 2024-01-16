@@ -13,5 +13,6 @@ double vector2_magnitude(vector2 v);
 vector2 vector2_normalize(vector2 v);
 vector2 vector2_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel);
 vector2 vector2_calc_size(vector2 size, vector2 px, vector2 rel);
+vector2 vector2_calc_anchor(vector2 pos, vector2 size, vector2 anchor);
 
 #endif
