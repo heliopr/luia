@@ -6,7 +6,8 @@
 
 #include "vector2.h"
 
-typedef enum luia_etype {
+typedef enum luia_etype
+{
     NONE,
     ROOT,
     GROUP,
