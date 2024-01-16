@@ -27,7 +27,9 @@ int main() {
     t->element->position_rel = (vector2) {0, 0.5};
     t->element->size_px = (vector2) {0, 100};
     t->element->size_rel = (vector2) {0.3, 0};
-    t->text_x_alignment = RIGHT;
+    t->text_x_alignment = X_MIDDLE;
+    t->text_y_alignment = Y_MIDDLE;
+    t->text_size = 100;
     strcpy(t->text, "BUTTON");
 
     luia_window_add_element(w, t->element);
