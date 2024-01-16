@@ -16,22 +16,24 @@ int main() {
         return 1;
     }
 
-    luia_window *w = luia_window_new(320, 200, "JANELINHA");
+    luia_window *w = luia_window_new(320, 200, "Windooooooow");
     w->resizable = true;
     w->background_color = (rgba){10, 10, 10};
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
-    t->element->position_px = (vector2) {0, -24};
+    t->element->position_px = (vector2) {0, 0};
     t->element->position_rel = (vector2) {0, 0.5};
     t->element->size_px = (vector2) {0, 50};
     t->element->size_rel = (vector2) {1, 0};
+    t->element->anchor = (vector2) {0, 0.5};
 
     luia_textlabel *t2 = luia_textlabel_new("lbl2");
-    t2->element->position_px = (vector2) {-24, 0};
+    t2->element->position_px = (vector2) {0, 0};
     t2->element->position_rel = (vector2) {0.5, 0};
     t2->element->size_px = (vector2) {50, 0};
     t2->element->size_rel = (vector2) {0, 1};
+    t2->element->anchor = (vector2) {0.5, 0};
     t2->background_color = (rgba){255, 0, 0, 255};
 
     luia_window_add_element(w, t->element);
