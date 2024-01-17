@@ -5,7 +5,7 @@ luia_textlabel *luia_textlabel_new(const char *name) {
     luia_textlabel *t = malloc(sizeof(luia_textlabel));
     t->text_size = 24;
     t->background_color = (rgba) {255, 255, 255, 255};
-    t->text_color = (rgba) {0, 0, 0, 255};
+    t->text_color = (rgba) {10, 10, 10, 255};
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_MIDDLE;
     strcpy(t->text, "");
