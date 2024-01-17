@@ -18,24 +18,24 @@ int main() {
 
     luia_window *w = luia_window_new(800, 600, "Windooooooow");
     w->resizable = true;
-    w->background_color = (rgba){10, 10, 10};
+    w->background_color = (rgba){230, 230, 230};
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
     t->element->anchor = (vector2) {0, 0.5};
-    t->element->position_px = (vector2) {0, 0};
+    t->element->position_px = (vector2) {30, 0};
     t->element->position_rel = (vector2) {0, 0.5};
-    t->element->size_px = (vector2) {0, 100};
-    t->element->size_rel = (vector2) {0.3, 0};
+    t->element->size_px = (vector2) {150, 60};
+    t->element->size_rel = (vector2) {0, 0};
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_MIDDLE;
     t->text_size = 20;
-    strcpy(t->text, "button");
+    strcpy(t->text, "text label");
 
     luia_window_add_element(w, t->element);
 
     luia_textlabel *t2 = luia_textlabel_new("lbl2");
-    t2->element->position_px = (vector2) {0, 0};
+    t2->element->position_px = (vector2) {-200, 0};
     t2->element->position_rel = (vector2) {1, 0.5};
     t2->element->size_px = (vector2) {100, 100};
     t2->element->size_rel = (vector2) {0, 0};

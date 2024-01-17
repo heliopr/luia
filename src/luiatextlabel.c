@@ -3,9 +3,11 @@
 
 luia_textlabel *luia_textlabel_new(const char *name) {
     luia_textlabel *t = malloc(sizeof(luia_textlabel));
-    t->text_size = 24;
-    t->background_color = (rgba) {255, 255, 255, 255};
-    t->text_color = (rgba) {10, 10, 10, 255};
+    t->text_size = 18;
+    t->background_color = (rgba) {225, 225, 225, 255};
+    t->border_color = (rgba) {20, 20, 20, 255};
+    t->border_thickness = 1;
+    t->text_color = (rgba) {20, 20, 20, 255};
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_MIDDLE;
     strcpy(t->text, "");
@@ -19,6 +21,7 @@ luia_textlabel *luia_textlabel_new(const char *name) {
 
 void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 pos, vector2 size) {
     luia_render_box(renderer, pos.x, pos.y, size.x, size.y, t->background_color);
+    luia_render_border(renderer, pos.x, pos.y, size.x, size.y, t->border_thickness, t->border_color);
 
     size_t txt_len = strlen(t->text);
     if (txt_len == 0) return;

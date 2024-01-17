@@ -27,22 +27,6 @@ void luia_calc_text_wh(uint8_t size, size_t character_count, uint16_t *w, uint16
     if (h != NULL) *h = (uint16_t)ceil(((double)size/120)*136);
 }
 
-int next_wrap(const char *s, int i, int goal) {
-    int len = strlen(s);
-    int j = i, k = i;
-    while (j <= len && j <= i+goal) {
-        if ((s[j] == '\0' || s[j] == ' ')) {
-            if (j > 0 && s[j-1] == ' ') {
-                j++;
-                continue;
-            }
-            k = j;
-        }
-        j++;
-    }
-    return k;
-}
-
 vector2 luia_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel) {
     return (vector2){pos.x + px.x + (size.x * rel.x), pos.y + px.y + (size.y * rel.y)};
     //return vector2_sum(pos, vector2_sum(px, (vector2){size.x * rel.x, size.y * rel.y}));
@@ -64,6 +48,16 @@ vector2 luia_calc_alignment(vector2 pos, vector2 size, uint16_t w, uint16_t h, l
     if (y == Y_MIDDLE) new_pos.y += (size.y-h)/2;
     else if (y == Y_BOTTOM) new_pos.y += size.y-h;
     return new_pos;
+}
+
+void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int thickness, rgba color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    int x2 = x+w;
+    int y2 = y+h;
+    SDL_RenderFillRect(renderer, &(SDL_Rect){x-thickness, y-thickness, w + thickness*2, thickness});
+    SDL_RenderFillRect(renderer, &(SDL_Rect){x2, y-thickness, thickness, h + thickness*2});
+    SDL_RenderFillRect(renderer, &(SDL_Rect){x-thickness, y2, w + thickness*2, thickness});
+    SDL_RenderFillRect(renderer, &(SDL_Rect){x-thickness, y-thickness, thickness, h + thickness*2});
 }
 
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, int x, int y, uint8_t size) {
