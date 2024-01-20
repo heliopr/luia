@@ -24,6 +24,7 @@ void luia_window_show(luia_window *w) {
     }
 
     w->sdl_renderer = SDL_CreateRenderer(w->sdl_window, -1, 0);
+    SDL_SetRenderDrawBlendMode(w->sdl_renderer, SDL_BLENDMODE_BLEND);
 }
 
 void luia_window_add_element(luia_window *w, luia_element *e) {
@@ -44,7 +45,10 @@ void luia_window_render(luia_window *w) {
 
     for (int i = 0; i < root->children_count; i++) {
         //printf("rendering %s\n", root->children[i]->name);
-        luia_element_render(root->children[i], renderer, pos, window_size);
+        luia_element *e = root->children[i];
+        if (e->visible) {
+            luia_element_render(e, renderer, pos, window_size);
+        }
     }
 
     SDL_RenderPresent(w->sdl_renderer);

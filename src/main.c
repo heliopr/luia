@@ -15,7 +15,7 @@ int main() {
         fprintf(stderr, "An error occurred when trying to init' luia\n");
         return 1;
     }
-
+    
     luia_window *w = luia_window_new(800, 600, "Windooooooow");
     w->resizable = true;
     w->background_color = (rgba){230, 230, 230};
@@ -30,7 +30,7 @@ int main() {
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_MIDDLE;
     t->text_size = 20;
-    strcpy(t->text, "text label");
+    strcpy(t->text, "text label KAKAKAKA N1OU23H12I3H12UI3G12YU");
 
     luia_window_add_element(w, t->element);
 

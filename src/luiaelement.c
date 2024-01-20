@@ -100,6 +100,9 @@ void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_po
     }
 
     for (int i = 0; i < e->children_count; i++) {
-        luia_element_render(e->children[i], renderer, new_pos, new_size);
+        luia_element *child = e->children[i];
+        if (child->visible) {
+            luia_element_render(child, renderer, new_pos, new_size);
+        }
     }
 }

@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "luiatextlabel.h"
+#include "luiatextlabel.h"
 #include "vector2.h"
 #include "rgba.h"
 
@@ -19,5 +20,6 @@ vector2 luia_calc_alignment(vector2 pos, vector2 size, uint16_t w, uint16_t h, l
 void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int thickness, rgba color);
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, int x, int y, uint8_t size);
 void luia_render_box(SDL_Renderer *renderer, int x, int y, int w, int h, rgba color);
+void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color);
 
 #endif
