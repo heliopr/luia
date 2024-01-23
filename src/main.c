@@ -22,15 +22,18 @@ int main() {
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
-    t->element->anchor = (vector2) {0, 0.5};
-    t->element->position_px = (vector2) {30, 0};
-    t->element->position_rel = (vector2) {0, 0.5};
+    t->element->anchor = (vector2) {0.5, 0};
+    t->element->position_px = (vector2) {0, 0};
+    t->element->position_rel = (vector2) {0.5, 0};
     t->element->size_px = (vector2) {0, 0};
-    t->element->size_rel = (vector2) {0.4, 0.3};
+    t->element->size_rel = (vector2) {0.6, 0.2};
     t->text_x_alignment = X_MIDDLE;
-    t->text_y_alignment = Y_BOTTOM;
-    t->text_size = 15;
-    strcpy(t->text, "text label palavrinha ]]");
+    t->text_y_alignment = Y_TOP;
+    t->text_size = 30;
+    t->clip_text = false;
+    t->wrap_text = true;
+    t->border_color = (rgba){0, 255, 0, 50};
+    strcpy(t->text, "TEXT label testttt]]");
 
     luia_window_add_element(w, t->element);
 

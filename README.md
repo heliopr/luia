@@ -9,3 +9,4 @@ the worst ui "library" in C
 - [ ] cache sdl textures for text rendering
 - [ ] images
 - [ ] buttons
+- [ ] text box

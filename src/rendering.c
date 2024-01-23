@@ -10,7 +10,7 @@ bool luia_load_fonts() {
         fonts[i] = TTF_OpenFont("fonts/arial_mono.ttf", i);
 
         if (!fonts[i]) {
-            fprintf(stderr, "Error: could not load font arial.ttf (size %d)\n%s\n", i, TTF_GetError());
+            fprintf(stderr, "Error: could not load font arial_mono.ttf (size %d)\n%s\n", i, TTF_GetError());
             return false;
         }
     }
@@ -51,7 +51,7 @@ vector2 luia_calc_alignment(vector2 pos, vector2 size, uint16_t w, uint16_t h, l
     return new_pos;
 }
 
-void luia_render_debug_point(SDL_Renderer *renderer, int x, int y, int size, rgba color) {
+void luia_render_point(SDL_Renderer *renderer, int x, int y, int size, rgba color) {
     luia_render_box(renderer, x-(size/2), y-(size/2), size, size, color);
 }
 
@@ -87,7 +87,7 @@ void luia_render_box(SDL_Renderer *renderer, int x, int y, int w, int h, rgba co
 }
 
 // crime
-void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color) {
+void luia_render_wrap_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color, bool clip_text) {
     uint16_t font_w, font_h;
     luia_calc_text_wh(size, 1, &font_w, &font_h);
 
@@ -108,6 +108,11 @@ void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int
     if (y_align == Y_BOTTOM) pos_y += h - (font_h*lines);
     else if (y_align == Y_MIDDLE) pos_y += (h - (font_h * lines))/2;
 
+    if (clip_text) {
+        SDL_Rect clip_rect = {x, y, w, h};
+        SDL_RenderSetClipRect(renderer, &clip_rect);
+    }
+
     int c = 0;
     for (int i = 0; i < lines; i++) {
         int j = str_next_wrap(text, c, chars_p_line);
@@ -124,4 +129,7 @@ void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int
         pos_y += font_h;
         c = j;
     }
+
+    if (clip_text) SDL_RenderSetClipRect(renderer, NULL);
 }
+

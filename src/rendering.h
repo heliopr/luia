@@ -17,9 +17,10 @@ vector2 luia_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel);
 vector2 luia_calc_size(vector2 size, vector2 px, vector2 rel);
 vector2 luia_calc_anchor(vector2 pos, vector2 size, vector2 anchor);
 vector2 luia_calc_alignment(vector2 pos, vector2 size, uint16_t w, uint16_t h, luia_x_alignment x, luia_y_alignment y);
+void luia_render_point(SDL_Renderer *renderer, int x, int y, int size, rgba color);
 void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int thickness, rgba color);
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, int x, int y, uint8_t size);
 void luia_render_box(SDL_Renderer *renderer, int x, int y, int w, int h, rgba color);
-void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color);
+void luia_render_wrap_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color, bool clip_text);
 
 #endif

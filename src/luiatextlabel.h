@@ -30,7 +30,9 @@ typedef struct luia_textlabel
     uint8_t text_size;
     rgba text_color;
     luia_x_alignment text_x_alignment;
-    luia_y_alignment text_y_alignment;    
+    luia_y_alignment text_y_alignment;
+    bool clip_text;
+    bool wrap_text;
 } luia_textlabel;
 
 luia_textlabel *luia_textlabel_new(const char *name);
