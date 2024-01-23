@@ -25,12 +25,12 @@ int main() {
     t->element->anchor = (vector2) {0, 0.5};
     t->element->position_px = (vector2) {30, 0};
     t->element->position_rel = (vector2) {0, 0.5};
-    t->element->size_px = (vector2) {150, 60};
-    t->element->size_rel = (vector2) {0, 0};
+    t->element->size_px = (vector2) {0, 0};
+    t->element->size_rel = (vector2) {0.4, 0.3};
     t->text_x_alignment = X_MIDDLE;
-    t->text_y_alignment = Y_MIDDLE;
-    t->text_size = 20;
-    strcpy(t->text, "text label KAKAKAKA N1OU23H12I3H12UI3G12YU");
+    t->text_y_alignment = Y_BOTTOM;
+    t->text_size = 15;
+    strcpy(t->text, "text label palavrinha ]]");
 
     luia_window_add_element(w, t->element);
 
@@ -42,7 +42,7 @@ int main() {
     t2->element->anchor = (vector2) {1, 0.5};
     t2->background_color = (rgba){255, 0, 0, 255};
 
-    luia_window_add_element(w, t2->element);
+    //luia_window_add_element(w, t2->element);
 
     luia_textlabel *t3 = luia_textlabel_new("lbl2");
     t3->element->position_px = (vector2) {0, 0};

@@ -29,7 +29,7 @@ void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 po
     uint16_t w, h;
     luia_calc_text_wh(t->text_size, txt_len, &w, &h);
 
-    luia_render_final_text(renderer, t->text, pos.x, pos.y, size.x, size.y, 0, 0, t->text_size, t->text_color);
+    luia_render_final_text(renderer, t->text, pos.x, pos.y, size.x, size.y, t->text_x_alignment, t->text_y_alignment, t->text_size, t->text_color);
 
     //pos = luia_calc_alignment(pos, size, w, h, t->text_x_alignment,t->text_y_alignment);
     //luia_render_text(renderer, t->text, t->text_color, pos.x, pos.y, t->text_size);

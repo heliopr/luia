@@ -51,6 +51,10 @@ vector2 luia_calc_alignment(vector2 pos, vector2 size, uint16_t w, uint16_t h, l
     return new_pos;
 }
 
+void luia_render_debug_point(SDL_Renderer *renderer, int x, int y, int size, rgba color) {
+    luia_render_box(renderer, x-(size/2), y-(size/2), size, size, color);
+}
+
 void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int thickness, rgba color) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     int x2 = x+w;
@@ -88,21 +92,36 @@ void luia_render_final_text(SDL_Renderer *renderer, const char *text, int x, int
     luia_calc_text_wh(size, 1, &font_w, &font_h);
 
     int chars_p_line = w/font_w;
+    chars_p_line = chars_p_line>0 ? chars_p_line : 1;
     int lines = 0, len = strlen(text);
-    int pos_y = y;
-    // J12H3IO12HKAJFB1KJ213J12I3Y123HPIDHQOGU
+
     {
         int i = 0;
         while (i < len) {
             int j = str_next_wrap(text, i, chars_p_line);
-            char b[1024];
-            str_copy(text, i, j, b);
-            char b2[1024];
-            str_clear_lspaces(b, b2);
-            luia_render_text(renderer, b2, color, x, pos_y, size);
-            pos_y += font_h;
             i = j;
             lines++;
         }
+    }
+
+    int pos_y = y;
+    if (y_align == Y_BOTTOM) pos_y += h - (font_h*lines);
+    else if (y_align == Y_MIDDLE) pos_y += (h - (font_h * lines))/2;
+
+    int c = 0;
+    for (int i = 0; i < lines; i++) {
+        int j = str_next_wrap(text, c, chars_p_line);
+        char b[1024];
+        str_copy(text, c, j, b);
+        char b2[1024];
+        str_clear_lspaces(b, b2);
+        int b2len = strlen(b2);
+
+        int pos_x = x;
+        if (x_align == X_RIGHT) pos_x += w - (b2len*font_w);
+        else if (x_align == X_MIDDLE) pos_x += (w - (b2len*font_w))/2;
+        luia_render_text(renderer, b2, color, pos_x, pos_y, size);
+        pos_y += font_h;
+        c = j;
     }
 }
