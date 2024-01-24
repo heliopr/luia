@@ -4,16 +4,21 @@
 #include "rendering.h"
 
 TTF_Font *fonts[256];
+int widths[256], heights[256];
 
 bool luia_load_fonts() {
     for (int i = 0; i < 256; i++) {
-        fonts[i] = TTF_OpenFont("fonts/arial_mono.ttf", i);
+        TTF_Font *font = TTF_OpenFont("fonts/arial_mono.ttf", i);;
 
-        if (!fonts[i]) {
+        if (!font) {
             fprintf(stderr, "Error: could not load font arial_mono.ttf (size %d)\n%s\n", i, TTF_GetError());
             return false;
         }
+
+        fonts[i] = font;
+        TTF_SizeUTF8(font, "y", &widths[i], &heights[i]);
     }
+
     return true;
 }
 
@@ -24,8 +29,11 @@ void luia_close_fonts() {
 }
 
 void luia_calc_text_wh(uint8_t size, size_t character_count, uint16_t *w, uint16_t *h) {
-    if (w != NULL) *w = (uint16_t)ceil(((double)size/120)*72) * character_count;
-    if (h != NULL) *h = (uint16_t)ceil(((double)size/120)*136);
+    /*if (w != NULL) *w = (uint16_t)ceil(((double)size/120)*72) * character_count;
+    if (h != NULL) *h = (uint16_t)ceil(((double)size/120)*136);*/
+
+    if (w != NULL) *w = (uint16_t)widths[size] * character_count;
+    if (h != NULL) *h = (uint16_t)heights[size];
 }
 
 vector2 luia_calc_pos(vector2 pos, vector2 size, vector2 px, vector2 rel) {
@@ -66,11 +74,14 @@ void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int 
 }
 
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, int x, int y, uint8_t size) {
-    SDL_Surface *surface = TTF_RenderText_Solid(fonts[size], text, (SDL_Color) {color.r, color.g, color.b, color.a});
+    SDL_Surface *surface = TTF_RenderUTF8_Blended(fonts[size], text, (SDL_Color) {color.r, color.g, color.b, color.a});
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     uint16_t w, h;
     luia_calc_text_wh(size, strlen(text), &w, &h);
+    //int sw, sh;
+    //TTF_SizeUTF8(fonts[size], text, &sw, &sh);
+    //printf("A: %u %u - B: %d %d\n", w, h, sw, sh);
     //SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     //printf("b %d %d\n", w, h);
     SDL_Rect dstrect = {x, y, w, h};

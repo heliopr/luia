@@ -22,18 +22,18 @@ int main() {
     luia_window_show(w);
 
     luia_textlabel *t = luia_textlabel_new("lbl");
-    t->element->anchor = (vector2) {0.5, 0};
+    t->element->anchor = (vector2) {0.5, 0.5};
     t->element->position_px = (vector2) {0, 0};
-    t->element->position_rel = (vector2) {0.5, 0};
+    t->element->position_rel = (vector2) {0.5, 0.5};
     t->element->size_px = (vector2) {0, 0};
-    t->element->size_rel = (vector2) {0.6, 0.2};
+    t->element->size_rel = (vector2) {0.7, 0.4};
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_TOP;
-    t->text_size = 30;
+    t->text_size = 14;
     t->clip_text = false;
     t->wrap_text = true;
     t->border_color = (rgba){0, 255, 0, 50};
-    strcpy(t->text, "TEXT label testttt]]");
+    strcpy(t->text, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et turpis et quam sagittis interdum faucibus vel turpis. Vestibulum vitae maximus nibh. Quisque quam purus, tincidunt eu pellentesque sed, luctus vitae lacus. In hac habitasse platea dictumst. Aenean id nibh commodo, ultricies dolor eu, facilisis ligula. Aenean suscipit, magna sed semper porttitor, dolor magna venenatis orci, volutpat fringilla enim erat ut eros. Vestibulum feugiat justo eu orci sodales, sed porttitor erat vestibulum. Quisque aliquet varius sem, in laoreet ligula efficitur ut. Quisque congue erat ut libero consectetur ultricies. Nam pretium interdum massa. Phasellus congue lorem id semper consequat. Etiam sodales tortor ipsum, vel eleifend nisl finibus vel. Cras ultrices eu magna gravida accumsan.");
 
     luia_window_add_element(w, t->element);
 
