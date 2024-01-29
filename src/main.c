@@ -10,6 +10,8 @@
 
 uint32_t last_t = 0;
 
+// LEMBRAR DE ARRUMAR AQUILO LA
+
 int main() {
     if (!luia_init()) {
         fprintf(stderr, "An error occurred when trying to init' luia\n");
@@ -17,7 +19,6 @@ int main() {
     }
     
     luia_window *w = luia_window_new(800, 600, "Windooooooow");
-    w->resizable = true;
     w->background_color = (rgba){230, 230, 230};
     luia_window_show(w);
 

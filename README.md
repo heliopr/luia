@@ -9,6 +9,7 @@ the worst ui "library" in C
 - [x] improve font quality
 - [x] borders
 - [x] round corners
+- [ ] border for round corners
 - [ ] cache sdl textures for text rendering
 - [ ] images
 - [ ] buttons

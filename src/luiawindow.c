@@ -5,9 +5,10 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
     luia_window *w = malloc(sizeof(luia_window));
     w->width = width;
     w->height = height;
-    w->resizable = false;
-    w->sdl_window = NULL;
-    w->sdl_renderer = NULL;
+    w->resizable = true;
+    w->sdl_window = SDL_CreateWindow(w->title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w->width, w->height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    w->sdl_renderer = SDL_CreateRenderer(w->sdl_window, -1, 0);
+    SDL_SetRenderDrawBlendMode(w->sdl_renderer, SDL_BLENDMODE_BLEND);
     w->background_color = (rgba){0, 0, 0, 255};
     strcpy(w->title, title);
 
@@ -17,15 +18,16 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
 }
 
 void luia_window_show(luia_window *w) {
-    if (w->resizable) {
-        w->sdl_window = SDL_CreateWindow(w->title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w->width, w->height, SDL_WINDOW_RESIZABLE);
-    }
-    else {
-        w->sdl_window = SDL_CreateWindow(w->title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w->width, w->height, SDL_WINDOW_SHOWN);
-    }
+    SDL_ShowWindow(w->sdl_window);
+}
 
-    w->sdl_renderer = SDL_CreateRenderer(w->sdl_window, -1, 0);
-    SDL_SetRenderDrawBlendMode(w->sdl_renderer, SDL_BLENDMODE_BLEND);
+void luia_window_hide(luia_window *w) {
+    SDL_HideWindow(w->sdl_window);
+}
+
+void luia_window_set_resizable(luia_window *w, bool resizable) {
+    w->resizable = resizable;
+    SDL_SetWindowResizable(w->sdl_window, resizable);
 }
 
 void luia_window_add_element(luia_window *w, luia_element *e) {
