@@ -6,7 +6,8 @@ luia_textlabel *luia_textlabel_new(const char *name) {
     t->text_size = 18;
     t->background_color = (rgba) {0, 0, 0, 0};
     t->border_color = (rgba) {0, 0, 0, 0};
-    t->border_thickness = 5;
+    t->border_thickness = 0;
+    t->corner_radius = 0;
     t->text_color = (rgba) {20, 20, 20, 255};
     t->text_x_alignment = X_MIDDLE;
     t->text_y_alignment = Y_MIDDLE;
@@ -22,8 +23,16 @@ luia_textlabel *luia_textlabel_new(const char *name) {
 }
 
 void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 pos, vector2 size) {
-    if (t->background_color.a > 0) luia_render_box(renderer, pos.x, pos.y, size.x, size.y, t->background_color);
-    if (t->border_color.a > 0) luia_render_border(renderer, pos.x, pos.y, size.x, size.y, t->border_thickness, t->border_color);
+    if (t->background_color.a > 0) {
+        if (t->corner_radius > 0) {
+            luia_render_rounded_box(renderer, pos.x, pos.y, size.x, size.y, t->corner_radius, t->background_color);
+        }
+        else {
+            luia_render_box(renderer, pos.x, pos.y, size.x, size.y, t->background_color);
+        }
+    }
+
+    if (t->border_color.a > 0 && t->border_thickness > 0) luia_render_border(renderer, pos.x, pos.y, size.x, size.y, t->border_thickness, t->border_color);
 
     size_t txt_len = strlen(t->text);
     if (txt_len == 0) return;

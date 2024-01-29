@@ -21,6 +21,8 @@ void luia_render_point(SDL_Renderer *renderer, int x, int y, int size, rgba colo
 void luia_render_border(SDL_Renderer *renderer, int x, int y, int w, int h, int thickness, rgba color);
 void luia_render_text(SDL_Renderer *renderer, const char *text, rgba color, int x, int y, uint8_t size);
 void luia_render_box(SDL_Renderer *renderer, int x, int y, int w, int h, rgba color);
+void luia_render_circle(SDL_Renderer *renderer, int x, int y, int radius, rgba color);
+void luia_render_rounded_box(SDL_Renderer *renderer, int x, int y, int w, int h, int round_radius, rgba color);
 void luia_render_wrap_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color, bool clip_text);
 
 #endif

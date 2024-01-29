@@ -26,6 +26,7 @@ typedef struct luia_textlabel
     rgba background_color;
     rgba border_color;
     int border_thickness;
+    int corner_radius;
     char text[1024];
     uint8_t text_size;
     rgba text_color;

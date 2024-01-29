@@ -27,23 +27,31 @@ int main() {
     t->element->position_rel = (vector2) {0.5, 0.5};
     t->element->size_px = (vector2) {0, 0};
     t->element->size_rel = (vector2) {0.7, 0.4};
-    t->text_x_alignment = X_MIDDLE;
-    t->text_y_alignment = Y_TOP;
+    t->text_x_alignment = X_LEFT;
+    t->text_y_alignment = Y_MIDDLE;
     t->text_size = 14;
-    t->clip_text = false;
+    t->clip_text = true;
     t->wrap_text = true;
-    t->border_color = (rgba){0, 255, 0, 50};
+    t->border_color = (rgba){0, 0, 0, 0};
+    t->border_thickness = 5;
+    t->background_color = (rgba){255, 0, 0, 255};
+    t->corner_radius = 15;
     strcpy(t->text, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et turpis et quam sagittis interdum faucibus vel turpis. Vestibulum vitae maximus nibh. Quisque quam purus, tincidunt eu pellentesque sed, luctus vitae lacus. In hac habitasse platea dictumst. Aenean id nibh commodo, ultricies dolor eu, facilisis ligula. Aenean suscipit, magna sed semper porttitor, dolor magna venenatis orci, volutpat fringilla enim erat ut eros. Vestibulum feugiat justo eu orci sodales, sed porttitor erat vestibulum. Quisque aliquet varius sem, in laoreet ligula efficitur ut. Quisque congue erat ut libero consectetur ultricies. Nam pretium interdum massa. Phasellus congue lorem id semper consequat. Etiam sodales tortor ipsum, vel eleifend nisl finibus vel. Cras ultrices eu magna gravida accumsan.");
 
     luia_window_add_element(w, t->element);
 
-    luia_textlabel *t2 = luia_textlabel_new("lbl2");
-    t2->element->position_px = (vector2) {-200, 0};
-    t2->element->position_rel = (vector2) {1, 0.5};
-    t2->element->size_px = (vector2) {100, 100};
-    t2->element->size_rel = (vector2) {0, 0};
-    t2->element->anchor = (vector2) {1, 0.5};
-    t2->background_color = (rgba){255, 0, 0, 255};
+    luia_textlabel *t2 = luia_textlabel_new("titulo");
+    t2->element->position_px = (vector2) {0, 0};
+    t2->element->position_rel = (vector2) {0, 0};
+    t2->element->size_px = (vector2) {0, 0};
+    t2->element->size_rel = (vector2) {1, 0.1};
+    t2->element->anchor = (vector2) {0, 0};
+    t2->text_size = 60;
+    t2->background_color = (rgba){100, 100, 100, 150};
+    t2->text_y_alignment = Y_TOP;
+    t2->clip_text = false;
+    t2->wrap_text = true;
+    strcpy(t2->text, "TITULO TITLE");
 
     //luia_window_add_element(w, t2->element);
 

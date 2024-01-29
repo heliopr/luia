@@ -97,6 +97,51 @@ void luia_render_box(SDL_Renderer *renderer, int x, int y, int w, int h, rgba co
     SDL_RenderFillRect(renderer, &r);
 }
 
+void luia_render_circle(SDL_Renderer *renderer, int x, int y, int radius, rgba color) {
+    int offsetx, offsety, d;
+    int status;
+
+    offsetx = 0;
+    offsety = radius;
+    d = radius -1;
+    status = 0;
+
+    while (offsety >= offsetx) {
+        status += SDL_RenderDrawLine(renderer, x - offsety, y + offsetx, x + offsety, y + offsetx);
+        status += SDL_RenderDrawLine(renderer, x - offsetx, y + offsety, x + offsetx, y + offsety);
+        status += SDL_RenderDrawLine(renderer, x - offsetx, y - offsety, x + offsetx, y - offsety);
+        status += SDL_RenderDrawLine(renderer, x - offsety, y - offsetx, x + offsety, y - offsetx);
+
+        if (status < 0) {
+            status = -1;
+            break;
+        }
+
+        if (d >= 2*offsetx) {
+            d -= 2*offsetx + 1;
+            offsetx +=1;
+        }
+        else if (d < 2 * (radius - offsety)) {
+            d += 2 * offsety - 1;
+            offsety -= 1;
+        }
+        else {
+            d += 2 * (offsety - offsetx - 1);
+            offsety -= 1;
+            offsetx += 1;
+        }
+    }
+}
+
+void luia_render_rounded_box(SDL_Renderer *renderer, int x, int y, int w, int h, int round_radius, rgba color) {
+    luia_render_box(renderer, x+round_radius, y, w-(round_radius*2), h, color);
+    luia_render_box(renderer, x, y+round_radius, w, h-(round_radius*2), color);
+    luia_render_circle(renderer, x+round_radius, y+round_radius, round_radius, color);
+    luia_render_circle(renderer, x+w-round_radius-1, y+round_radius, round_radius, color);
+    luia_render_circle(renderer, x+round_radius, y+h-round_radius-1, round_radius, color);
+    luia_render_circle(renderer, x+w-round_radius-1, y+h-round_radius-1, round_radius, color);
+}
+
 // crime
 void luia_render_wrap_text(SDL_Renderer *renderer, const char *text, int x, int y, int w, int h, luia_x_alignment x_align, luia_y_alignment y_align, uint16_t size, rgba color, bool clip_text) {
     uint16_t font_w, font_h;

@@ -1,4 +1,5 @@
 #include "luiawindow.h"
+#include "rendering.h"
 
 luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title) {
     luia_window *w = malloc(sizeof(luia_window));
