@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "rendering.h"
+#include "luiaframe.h"
 #include "luiatextlabel.h"
 #include "luiaelement.h"
 
@@ -15,7 +16,7 @@ luia_element *luia_element_new(const char *name) {
     e->children_count = 0;
     e->children_allocated = 0;
     e->data = NULL;
-    e->type = NONE;
+    e->type = ELEMENT_NONE;
     e->visible = true;
     e->id = element_id_count++;
     e->position_px = (vector2){0, 0};
@@ -84,16 +85,25 @@ void luia_element_destroy(luia_element *e) {
 void luia_element_render(luia_element *e, SDL_Renderer *renderer, vector2 abs_pos, vector2 abs_size) {
     //printf("BBB %f %f          %f %f\n", abs_pos.x, abs_pos.y, abs_size.x, abs_size.y);
 
-    vector2 new_size = luia_calc_size(abs_size, e->size_px, e->size_rel);
-    vector2 new_pos = luia_calc_pos(abs_pos, abs_size, e->position_px, e->position_rel);
-    new_pos = luia_calc_anchor(new_pos, new_size, e->anchor);
+    vector2 new_size = abs_size;
+    vector2 new_pos = abs_pos;
+
+    if (e->type != ELEMENT_GROUP && e->type != ELEMENT_ROOT) {
+        new_size = luia_calc_size(abs_size, e->size_px, e->size_rel);
+        new_pos = luia_calc_pos(abs_pos, abs_size, e->position_px, e->position_rel);
+        new_pos = luia_calc_anchor(new_pos, new_size, e->anchor);
+    }
 
     //printf("AAA %f %f          %f %f\n", new_pos.x, new_pos.y, new_size.x, new_size.y);
 
     switch (e->type)
     {
-        case TEXT_LABEL:
+        case ELEMENT_TEXT_LABEL:
+            //printf("%f %f ; %f %f\n", new_pos.x, new_pos.y, new_size.x, new_size.y);
             luia_textlabel_render((luia_textlabel *)e->data, renderer, new_pos, new_size);
+            break;
+        case ELEMENT_FRAME:
+            luia_frame_render((luia_frame *)e->data, renderer, new_pos, new_size);
             break;
         default:
             break;

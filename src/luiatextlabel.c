@@ -16,14 +16,18 @@ luia_textlabel *luia_textlabel_new(const char *name) {
     strcpy(t->text, "");
 
     luia_element *e = luia_element_new(name);
-    e->type = TEXT_LABEL;
+    e->type = ELEMENT_TEXT_LABEL;
     e->data = t;
     t->element = e;
     return t;
 }
 
 void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 pos, vector2 size) {
-    if (t->background_color.a > 0) {
+    luia_render_rectangle(renderer, pos, size, t->background_color, t->border_color, t->border_thickness, t->corner_radius);
+    luia_render_text(renderer, pos, size, t->text, t->text_size, t->text_color, t->text_x_alignment, t->text_y_alignment, t->wrap_text, t->clip_text);
+
+
+    /*if (t->background_color.a > 0) {
         if (t->corner_radius > 0) {
             luia_render_rounded_box(renderer, pos.x, pos.y, size.x, size.y, t->corner_radius, t->background_color);
         }
@@ -32,9 +36,9 @@ void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 po
         }
     }
 
-    if (t->border_color.a > 0 && t->border_thickness > 0) luia_render_border(renderer, pos.x, pos.y, size.x, size.y, t->border_thickness, t->border_color);
+    if (t->border_color.a > 0 && t->border_thickness > 0) luia_render_border(renderer, pos.x, pos.y, size.x, size.y, t->border_thickness, t->border_color);*/
 
-    size_t txt_len = strlen(t->text);
+    /*size_t txt_len = strlen(t->text);
     if (txt_len == 0) return;
 
     if (t->wrap_text) {
@@ -53,5 +57,5 @@ void luia_textlabel_render(luia_textlabel *t, SDL_Renderer *renderer, vector2 po
         luia_render_text(renderer, t->text, t->text_color, text_pos.x, text_pos.y, t->text_size);
 
         if (t->clip_text) SDL_RenderSetClipRect(renderer, NULL);
-    }
+    }*/
 }

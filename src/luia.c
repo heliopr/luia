@@ -1,8 +1,6 @@
 #include <stdbool.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 
-#include "rendering.h"
+#include "luia.h"
 
 bool luia_init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {

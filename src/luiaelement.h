@@ -1,6 +1,7 @@
 #ifndef LUIA_ELEMENT_H
 #define LUIA_ELEMENT_H
 
+#include <SDL2/SDL.h>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -8,10 +9,11 @@
 
 typedef enum luia_etype
 {
-    NONE,
-    ROOT,
-    GROUP,
-    TEXT_LABEL
+    ELEMENT_NONE,
+    ELEMENT_ROOT,
+    ELEMENT_GROUP,
+    ELEMENT_TEXT_LABEL,
+    ELEMENT_FRAME
 } luia_etype;
 
 typedef struct luia_element

@@ -13,7 +13,7 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
     strcpy(w->title, title);
 
     w->root_element = luia_element_new("root");
-    w->root_element->type = ROOT;
+    w->root_element->type = ELEMENT_ROOT;
     return w;
 }
 
