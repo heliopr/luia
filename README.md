@@ -14,3 +14,4 @@ the worst ui "library" in C
 - [ ] images
 - [ ] buttons
 - [ ] text box
+- [ ] handling events

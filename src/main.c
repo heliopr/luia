@@ -2,11 +2,13 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "luia.h"
+#include "luiawindow.h"
+#include "luiatextlabel.h"
+#include "luiagroup.h"
+#include "luiaframe.h"
+#include "luiacore.h"
 
 uint32_t last_t = 0;
-
-// LEMBRAR DE ARRUMAR AQUILO LA
 
 int main() {
     if (!luia_init()) {
@@ -17,6 +19,12 @@ int main() {
     luia_window *w = luia_window_new(800, 600, "Windooooooow");
     w->background_color = (rgba){230, 230, 230};
     luia_window_show(w);
+
+    luia_window *w2 = luia_window_new(300, 300, "Windo2 ");
+    w2->quit_on_close = true;
+    luia_window_show(w2);
+
+    //luia_window_focus(w);
 
     luia_group *g = luia_group_new("grupo");
     luia_window_add_element(w, g->element);
@@ -44,34 +52,8 @@ int main() {
     frame->element->size_rel = (vector2){1, 0.1};
     frame->background_color = (rgba){0, 255, 0, 255};
     luia_window_add_element(w, frame->element);
-
-    SDL_Event e;
-
-    while (1) {
-        uint32_t remaining = (1000/60) - (last_t - SDL_GetTicks());
-        if (remaining > 0) SDL_Delay(remaining);
-
-        if (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                break;
-            }
-        }
-
-        luia_window_render(w);
-        //luia_element_render(t->element, w->sdl_renderer, (vector2){0, 0}, (vector2){320, 200});
-
-        /*uint8_t size = 24;
-        uint16_t wi = (uint16_t)ceil(((double)size/120)*72) * 18, h = (uint16_t)ceil(((double)size/120)*136);
-        printf("a %d %d\n", wi, h);
-        SDL_Rect r = {10, 10, wi, h};
-        SDL_SetRenderDrawColor(w->sdl_renderer, 255, 200, 200, 255);
-        SDL_RenderFillRect(w->sdl_renderer, &r);
-
-        luia_render_text(w->sdl_renderer, "A12b3io12nbum-08BH", (rgba){255, 255, 255, 255}, 10, 10, size);
-        //luia_render_text(w->sdl_renderer, "JIKLMNOPQRSTUVJK1HAH", (rgba){255, 255, 255, 255}, 10, 30, 10);*/
-
-        last_t = SDL_GetTicks();
-    }
+    
+    luia_run();
 
     luia_quit();
 }
