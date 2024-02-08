@@ -15,6 +15,9 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
     w->background_color = (rgba){0, 0, 0, 255};
     strcpy(w->title, title);
 
+    w->key_down_event = luia_event_new();
+    w->key_up_event = luia_event_new();
+
     w->root_element = luia_element_new("root");
     w->root_element->type = ELEMENT_ROOT;
 
@@ -80,6 +83,24 @@ void luia_window_handle_event(luia_window *w, SDL_Event event) {
         }
         else {
             luia_window_destroy(w);
+        }
+    }
+    else {
+        int mouse_x, mouse_y;
+        SDL_GetMouseState(&mouse_x, &mouse_y);
+        switch (event.type) {
+            case SDL_KEYDOWN:
+                luia_window_keydown_event keydown_event = {w, luia_sdlkey_map(event.key.keysym.sym)};
+                luia_event_fire(w->key_down_event, (void*)&keydown_event);
+                break;
+
+            case SDL_KEYUP:
+                luia_window_keyup_event keyup_event = {w, luia_sdlkey_map(event.key.keysym.sym)};
+                luia_event_fire(w->key_up_event, (void*)&keyup_event);
+                break;
+            
+            default:
+                break;
         }
     }
 }

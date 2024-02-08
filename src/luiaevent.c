@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "luiaevent.h"
 
@@ -25,7 +26,7 @@ void luia_event_listen(luia_event *e, func_ptr_t func) {
     if (e->listener_count == e->allocated) {
         e->allocated *= 2;
         //printf("realloc %d\n", e->allocated);
-        void **new_listeners = realloc(e->listeners, sizeof(func_ptr_t)*e->allocated);
+        func_ptr_t *new_listeners = realloc(e->listeners, sizeof(func_ptr_t)*e->allocated);
         if (!new_listeners) {
             printf("ERROR\n");
         }
@@ -51,22 +52,14 @@ void luia_event_fire(luia_event *e, void *event_info) {
 void luia_event_remove_listener(luia_event *e, func_ptr_t func) {
     if (e == NULL || func == NULL) return;
 
-    int in = -1;
     for (int i = 0; i < e->listener_count; i++) {
         if (e->listeners[i] == func) {
-            e->listeners[i] = NULL;
-            in = i;
+            e->listeners[i] = e->listeners[e->listener_count-1];
             break;
         }
     }
 
-    if (in == -1) return;
-
-    for (int j = in+1; j < e->listener_count; j++) {
-        e->listeners[j-1] = e->listeners[j];
-    }
-
-    e->listeners[e->listener_count--] = NULL;
+    e->listeners[--e->listener_count] = NULL;
 }
 
 void luia_event_destroy(luia_event *e) {

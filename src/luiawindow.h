@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 
 #include "rgba.h"
+#include "luiaevent.h"
 #include "luiaelement.h"
 
 typedef struct luia_window
@@ -20,7 +21,23 @@ typedef struct luia_window
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
     luia_element *root_element;
+
+    luia_event *key_down_event;
+    luia_event *key_up_event;
 } luia_window;
+
+typedef struct luia_window_keydown_event
+{
+    luia_window *window;
+    luia_key key;
+} luia_window_keydown_event;
+
+typedef struct luia_window_keyup_event
+{
+    luia_window *window;
+    luia_key key;
+} luia_window_keyup_event;
+
 
 luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title);
 void luia_window_show(luia_window *w);

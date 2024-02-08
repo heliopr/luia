@@ -10,6 +10,12 @@
 
 uint32_t last_t = 0;
 
+void keydown(void *e) {
+    luia_window_keydown_event *ev = (luia_window_keydown_event*)e;
+
+    printf("janelinha 1 apertou teclinha %d\n", ev->key);
+}
+
 int main() {
     if (!luia_init()) {
         fprintf(stderr, "An error occurred when trying to init' luia\n");
@@ -21,8 +27,10 @@ int main() {
     luia_window_show(w);
 
     luia_window *w2 = luia_window_new(300, 300, "Windo2 ");
-    w2->quit_on_close = true;
+    w2->quit_on_close = false;
     luia_window_show(w2);
+
+    luia_event_listen(w->key_down_event, keydown);
 
     //luia_window_focus(w);
 
