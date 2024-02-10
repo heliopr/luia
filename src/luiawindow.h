@@ -8,6 +8,8 @@
 #include "rgba.h"
 #include "luiaevent.h"
 #include "luiaelement.h"
+#include "luiakeyboard.h"
+#include "luiamouse.h"
 
 typedef struct luia_window
 {
@@ -24,6 +26,8 @@ typedef struct luia_window
 
     luia_event *key_down_event;
     luia_event *key_up_event;
+    luia_event *mouse_down_event;
+    luia_event *mouse_up_event;
 } luia_window;
 
 typedef struct luia_window_keydown_event
@@ -37,6 +41,20 @@ typedef struct luia_window_keyup_event
     luia_window *window;
     luia_key key;
 } luia_window_keyup_event;
+
+typedef struct luia_window_mousedown_event
+{
+    luia_window *window;
+    int x, y;
+    luia_mousebutton button;
+} luia_window_mousedown_event;
+
+typedef struct luia_window_mouseup_event
+{
+    luia_window *window;
+    int x, y;
+    luia_mousebutton button;
+} luia_window_mouseup_event;
 
 
 luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title);

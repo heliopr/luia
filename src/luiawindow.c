@@ -17,6 +17,8 @@ luia_window *luia_window_new(uint16_t width, uint16_t height, const char *title)
 
     w->key_down_event = luia_event_new();
     w->key_up_event = luia_event_new();
+    w->mouse_down_event = luia_event_new();
+    w->mouse_up_event = luia_event_new();
 
     w->root_element = luia_element_new("root");
     w->root_element->type = ELEMENT_ROOT;
@@ -97,6 +99,16 @@ void luia_window_handle_event(luia_window *w, SDL_Event event) {
             case SDL_KEYUP:
                 luia_window_keyup_event keyup_event = {w, luia_sdlkey_map(event.key.keysym.sym)};
                 luia_event_fire(w->key_up_event, (void*)&keyup_event);
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                luia_window_mousedown_event mousedown_event = {w, mouse_x, mouse_y, luia_sdlmouse_map(event.button.button)};
+                luia_event_fire(w->mouse_down_event, (void*)&mousedown_event);
+                break;
+
+            case SDL_MOUSEBUTTONUP:
+                luia_window_mouseup_event mouseup_event = {w, mouse_x, mouse_y, luia_sdlmouse_map(event.button.button)};
+                luia_event_fire(w->mouse_up_event, (void*)&mouseup_event);
                 break;
             
             default:

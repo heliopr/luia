@@ -43,7 +43,7 @@ void luia_element_add_child(luia_element *parent, luia_element *child) {
 }
 
 void luia_element_unparent(luia_element *e) {
-    if (e->parent == NULL) return;
+    if (e == NULL || e->parent == NULL) return;
 
     luia_element *parent = e->parent;
 

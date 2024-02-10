@@ -44,9 +44,9 @@ int main() {
     t->element->size_px = (vector2) {0, 0};
     t->element->size_rel = (vector2) {0.7, 0.4};
     t->text_x_alignment = X_LEFT;
-    t->text_y_alignment = Y_MIDDLE;
+    t->text_y_alignment = Y_BOTTOM;
     t->text_size = 14;
-    t->clip_text = true;
+    t->clip_text = false;
     t->wrap_text = true;
     t->border_color = (rgba){0, 0, 0, 0};
     t->border_thickness = 5;

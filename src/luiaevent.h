@@ -1,8 +1,6 @@
 #ifndef LUIA_EVENT_H
 #define LUIA_EVENT_H
 
-#include "luiakeyboard.h"
-
 typedef void (* func_ptr_t)(void *);
 
 typedef struct luia_event
