@@ -26,9 +26,9 @@ int main() {
     w->background_color = (rgba){230, 230, 230};
     luia_window_show(w);
 
-    luia_window *w2 = luia_window_new(300, 300, "Windo2 ");
+    /*luia_window *w2 = luia_window_new(300, 300, "Windo2 ");
     w2->quit_on_close = false;
-    luia_window_show(w2);
+    luia_window_show(w2);*/
 
     luia_event_listen(w->key_down_event, keydown);
 
@@ -60,6 +60,17 @@ int main() {
     frame->element->size_rel = (vector2){1, 0.1};
     frame->background_color = (rgba){0, 255, 0, 255};
     luia_window_add_element(w, frame->element);
+
+    luia_frame *frame2 = luia_frame_new("FRAMEZINHO2");
+    frame2->element->size_rel = (vector2){0.3, 0.3};
+    frame2->background_color = (rgba){0, 255, 0, 255};
+    frame2->element->render_index = 1;
+    luia_element_add_child(t->element, frame2->element);
+
+    luia_frame *frame3 = luia_frame_new("FRAME3");
+    frame3->element->size_rel = (vector2){0.2, 0.2};
+    frame3->background_color = (rgba){0, 0, 255, 255};
+    luia_element_add_child(t->element, frame3->element);
     
     luia_run();
 

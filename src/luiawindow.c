@@ -55,6 +55,26 @@ void luia_window_add_element(luia_window *w, luia_element *e) {
     luia_element_add_child(w->root_element, e);
 }
 
+void get_hovering_element(luia_element *e, int mouse_x, int mouse_y, luia_element **res) {
+    luia_element *children_copy[e->children_count];
+    memcpy(children_copy, e->children, sizeof(luia_element*)*e->children_count);
+    qsort(children_copy, e->children_count, sizeof(luia_element*), luia_element_sort_comp);
+
+    for (int i = 0; i < e->children_count; i++) {
+        luia_element *c = children_copy[i];
+        if (c != NULL && (*res) == NULL) {
+            get_hovering_element(c, mouse_x, mouse_y, res);
+        }
+
+        if ((*res) != NULL) break;
+    }
+
+    if ((*res) == NULL && e->visible && mouse_x >= e->rendering_pos.x && mouse_x < e->rendering_pos.x+e->rendering_size.x
+    && mouse_y >= e->rendering_pos.y && mouse_y < e->rendering_pos.y+e->rendering_size.y) {
+        *res = e;
+    }
+}
+
 void luia_window_render(luia_window *w) {
     luia_element *root = w->root_element;
     SDL_Renderer *renderer = w->sdl_renderer;
@@ -67,13 +87,14 @@ void luia_window_render(luia_window *w) {
     vector2 window_size = {w->width, w->height};
     vector2 pos = {0, 0};
 
-    for (int i = 0; i < root->children_count; i++) {
+    luia_element_render(w->root_element, renderer, pos, window_size);
+    /*for (int i = 0; i < root->children_count; i++) {
         //printf("rendering %s\n", root->children[i]->name);
         luia_element *e = root->children[i];
         if (e->visible) {
             luia_element_render(e, renderer, pos, window_size);
         }
-    }
+    }*/
 
     SDL_RenderPresent(w->sdl_renderer);
 }
@@ -104,6 +125,18 @@ void luia_window_handle_event(luia_window *w, SDL_Event event) {
             case SDL_MOUSEBUTTONDOWN:
                 luia_window_mousedown_event mousedown_event = {w, mouse_x, mouse_y, luia_sdlmouse_map(event.button.button)};
                 luia_event_fire(w->mouse_down_event, (void*)&mousedown_event);
+
+
+                luia_element *res = NULL;
+                get_hovering_element(w->root_element, mouse_x, mouse_y, &res);
+
+                if (res == NULL) {
+                    printf("clicou em nada\n");
+                }
+                else {
+                    printf("clicou no elemento %s\n", res->name);
+                }
+                
                 break;
 
             case SDL_MOUSEBUTTONUP:
